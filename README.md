@@ -101,5 +101,56 @@ print(pair['R'])
  3.025 3.075 3.125 3.175 3.225 3.275 3.325 3.375 3.425 3.475 3.525 3.575
  3.625 3.675 3.725]
 ```
+Find potential at a specific R value using interpolation.
+```python
+from read_2adb import read_2adb, query_pair
+import numpy as np
+from scipy.interpolate import interp1d
+
+filepath = '../data/processed/2adb.txt'
+db_2a = read_2adb(filepath)
+
+# Interpolate the potential energy for a given distance R
+element_names = ['H', 'C', 'N', 'O']
+N = len(element_names)
+selected_data = {}
+for i in range(0, N):
+    for j in range(0, N):
+        if j>=i:
+            pair = query_pair(db_2a, [element_names[i], element_names[j]])
+
+            x0 = np.array(list(pair['R']) +[3.0])   ##r_cut = 3.0                                                      
+            y0 = np.array(list(pair['Potential_Energy']) +[0.0])
+            mask = ~np.isnan(y0)
+            x = x0[mask]
+            y = y0[mask]
+
+            interp_func = interp1d(x, y, kind='linear')
+            pair['interp_pot_func'] = interp_func
+
+            name = element_names[i] +'_' +element_names[j]
+            selected_data[name] = pair
+
+r_query = 1.513
+print('R_query = ', r_query)
+print('Potential-H_C (R_query) =', query_pair(selected_data, ['H', 'C'])['interp_pot_func'](r_query))
+print('Potential-C_H (R_query) =', query_pair(selected_data, ['C', 'H'])['interp_pot_func'](r_query))
+print('Potential-N_N (R_query) =', query_pair(selected_data, ['N', 'N'])['interp_pot_func'](r_query))
+
+print('\n')
+r_query_list = [1.513, 1.72, 1.8]
+print('R_query_list = ', r_query_list)
+print('Potential-O_O (R_query) =', query_pair(selected_data, ['O', 'O'])['interp_pot_func'](r_query_list))
+```
+
+```text
+R_query =  1.513
+Potential-H_C (R_query) = -2.0041742900000004
+Potential-C_H (R_query) = -2.0041742900000004
+Potential-N_N (R_query) = -5.816155645600001
+
+R_query_list =  [1.513, 1.72, 1.8]
+Potential-O_O (R_query) = [-5.58379765 -3.88315425 -3.2571173 ]
+```
 
 ---
