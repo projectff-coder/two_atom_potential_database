@@ -83,8 +83,3 @@ print(pair['R'])
 ```
 
 ---
-
-## Cite This Work
-If you use this data or code in your work, please cite our paper:
-> **Citation:**
-Aniwat Kesorn, Cheewawut Na Talang, Asawin Sinsarp, Sujin Suwanna, Suraphong Yuma; Two-atom interaction potential database supporting physics-informed features for machine learning and material property prediction. J. Chem. Phys. 14 October 2026; 165 (14): 144119. https://doi.org/10.1063/5.0350327 
