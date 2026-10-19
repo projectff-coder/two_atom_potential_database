@@ -140,7 +140,7 @@ print('Potential-N_N (R_query) =', query_pair(selected_data, ['N', 'N'])['interp
 print('\n')
 r_query_list = [1.513, 1.72, 1.8]
 print('R_query_list = ', r_query_list)
-print('Potential-O_O (R_query) =', query_pair(selected_data, ['O', 'O'])['interp_pot_func'](r_query_list))
+print('Potential-O_O (R_query_list) =', query_pair(selected_data, ['O', 'O'])['interp_pot_func'](r_query_list))
 ```
 
 ```text
@@ -150,7 +150,7 @@ Potential-C_H (R_query) = -2.0041742900000004
 Potential-N_N (R_query) = -5.816155645600001
 
 R_query_list =  [1.513, 1.72, 1.8]
-Potential-O_O (R_query) = [-5.58379765 -3.88315425 -3.2571173 ]
+Potential-O_O (R_query_list) = [-5.58379765 -3.88315425 -3.2571173 ]
 ```
 
 ---
